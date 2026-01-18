@@ -29,7 +29,6 @@ let spawnTimer = 0;
 let moneyTexts = [];
 // 🔊 音效
 let clickSound;
-let redPacketSound;   // ★ 新增：红包炸开音效
 let audioStarted = false;
 
 
@@ -42,7 +41,6 @@ function preload() {
   horse4 = loadImage('horse4.png');
   // 🔊 加载音效
   clickSound = loadSound('click.wav');
-    redPacketSound = loadSound('redpacket.wav'); 
 
 }
 
@@ -327,7 +325,6 @@ class RedPacketParticle {
 
     this.life = 25;   // 爆炸持续帧数
     this.dead = false;
-    this.soundPlayed = false; // ★ 防止重复播放
   }
 
   update() {
@@ -341,8 +338,7 @@ class RedPacketParticle {
     this.life--;
 
     // 💥 爆炸结束的“那一瞬间”
-    if (this.life === 0 && !this.soundPlayed) {
-        //if (redPacketSound.isLoaded()) redPacketSound.play(); // 🔊 播放红包音效
+    if (this.life === 0) {
       moneyTexts.push(new MoneyText(this.x, this.y));
       this.dead = true;
     }
